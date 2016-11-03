@@ -1,0 +1,44 @@
+<div class="table_form_container">
+
+<form>
+    <div class="form-group search-form">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search user by Name or ID" ng-model="configuration.searchUser">
+      </div> 
+      <div class="input-group">
+      <p class="input-group-addon">Number of rows to display</p><input type="text" class="form-control" placeholder="Displaying Default Row Numbers (30)" ng-model="configuration.numberOfRows"> 
+      </div>    
+    </div>
+  </form>
+
+<table class="emp_table" ng-show="ngModel.length!=0">
+		<tr>
+		<th>
+		<a href="#" ng-click="configuration.sortType = 'user.id'; configuration.sortReverse = !configuration.sortReverse">
+		User ID
+		<span ng-show="configuration.sortType == 'user.id'&& !configuration.sortReverse" class="fa fa-caret-down"></span>
+		<span ng-show="configuration.sortType == 'user.id'&& configuration.sortReverse" class="fa fa-caret-up"></span>
+		</a>
+		</th>
+		<th>User Avatar</th>
+		<th>
+		<a href="#" ng-click="configuration.sortType = 'user.login'; configuration.sortReverse = !configuration.sortReverse">
+		User Name
+		<span ng-show="configuration.sortType == 'user.login' && !configuration.sortReverse" class="fa fa-caret-down"></span>
+		<span ng-show="configuration.sortType == 'user.login' && configuration.sortReverse" class="fa fa-caret-up"></span>
+		</a>
+		</th>
+		<th>User Type</th>
+		<th>User Profile</th>
+		</tr>
+        <tr ng-repeat="user in ngModel | orderBy:configuration.sortType:configuration.sortReverse | filter:configuration.searchUser | limitTo : configuration.numberOfRows : configuration.begin">
+          <td class="" style="padding-left:10px;">{{user.id}}</td>
+          <td class="" style="padding-left:10px;"><img class="poster" ng-src="{{user.avatar_url}}" alt="user image"></td>
+          <td class="" style="padding-left:10px;">{{user.login}}</td>
+          <td class="" style="padding-left:10px;">{{user.type}}</td>
+          <td class="" style="padding-left:10px;"><a href="{{user.html_url}}" target="_blank">Go to profile</a></td>
+        </tr>
+
+</table>
+</div>
